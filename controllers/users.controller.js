@@ -44,12 +44,12 @@ async function userlogin(req,res) {
     const body = req.body;
 
     if(!body || !body.name || !body.password){
-        res.send("All fields are compusory!!");
+       return res.send("All fields are compusory!!");
     }
 
     const user = await users.findOne({email: body.name});
     if(!user)
-            res.status(404).send({
+          return   res.status(404).send({
             mssg:`User Not exist `,
             status : "UnSuccesfull"
         })
@@ -65,7 +65,7 @@ async function userlogin(req,res) {
         });
     }
     else
-        res.status(401).send({
+        return  res.status(401).send({
             mssg:`User Password Not Matched`,
             status : "UnSuccesfull"
         })

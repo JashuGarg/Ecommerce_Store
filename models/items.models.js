@@ -6,15 +6,24 @@ const itemSchema = new mongoose.Schema({
         required: true
     },
     price :{
-        type: String,
+        type: Number,
         required: true
     },
     discount :{
-        type: String,
-        required: true
+        type: Number,
+        required: false,
+        default: 0,
+
     },
-    image:{
+    description:{
         type: String,
-        required:true
+        required : false
     }
+    // image:{
+    //     type: String,
+    //     required:true
+    // }
 })
+
+
+export const items = mongoose.model("items",itemSchema);

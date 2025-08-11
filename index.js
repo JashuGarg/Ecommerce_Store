@@ -1,6 +1,7 @@
 // import cookieparser from "cookieparser";
 import express from "express" ;
 import { router as userrouter }  from "./routes/user.route.js";
+import { router as itemrouter } from "./routes/items.routes.js";
 import { Connectdb } from "./connect.js";
 const url = "mongodb://localhost:27017/e-commerce"
 const port = 3000;
@@ -20,8 +21,8 @@ Connectdb(url).then(()=>{
 
 //routes
 
-app.use("/users" ,userrouter)
-
+app.use("/users" ,userrouter);
+app.use("/admin",itemrouter);
 
 
 //server 
