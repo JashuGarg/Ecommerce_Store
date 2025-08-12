@@ -2,7 +2,7 @@ import { users } from "../models/users.models.js";
 import bcrypt from "bcrypt" ; 
 import { setUser,getUser } from "../utils/auth.js";
 
-async function usersingup(req,res) {
+async function usersignup(req,res) {
     const body = req.body;
 
     if(!body || !body.username || !body.email || !body.password){
@@ -17,6 +17,7 @@ async function usersingup(req,res) {
         email: body.email,
         password: hashpass,
         contactno: body.contactno,
+        orders: []
         // will add picture feature later
     });
 
@@ -57,6 +58,7 @@ async function userlogin(req,res) {
     const isMatch = await bcrypt.compare(body.password , user.password);
     if(isMatch){
         const token = setUser(user)
+       
        res.cookie("usercredentials",token) ;
        
         res.status(200).send({
@@ -72,4 +74,4 @@ async function userlogin(req,res) {
 }
 
 
-export {userlogin, usersingup} ;
+export {userlogin, usersignup} ;

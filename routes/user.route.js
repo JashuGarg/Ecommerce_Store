@@ -1,5 +1,7 @@
 import express from "express";
-import { userlogin, usersingup } from "../controllers/users.controller.js";
+import { checkifuserexist } from "../middlewares/auth.js";
+import { userlogin, usersignup } from "../controllers/users.controller.js";
+import { sellingproducts } from "../controllers/items.controllers.js";
 const router = express.Router();
 
 
@@ -19,7 +21,7 @@ router
             status: "Successfull",
         })
     })
-    .post(usersingup);
+    .post(usersignup);
 
 router
     .route("/api/login")
@@ -30,4 +32,10 @@ router
         })
     })
     .post(userlogin);
+
+    router  
+        .route("/items/:id")
+        .get(checkifuserexist,sellingproducts)
+   
+
 export {router}

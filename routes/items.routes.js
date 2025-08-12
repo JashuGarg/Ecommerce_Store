@@ -1,6 +1,6 @@
 import express from "express"
 import { adminaddsitems } from "../controllers/items.controllers.js"
-
+import { checkifuserexist } from "../middlewares/auth.js";
 
 
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 
 router  
     .route("/additem")
-    .get((req,res) => {
+    .get( checkifuserexist,(req,res) => {
         res.send("working add items")
     })
     .post(adminaddsitems);

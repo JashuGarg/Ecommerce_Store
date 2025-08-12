@@ -16,12 +16,9 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique:false
     },
-    cart:{
-        type: Array,
-        default : []
-    },
-    orders:{
-        type: Array,
+     orders: {
+        type: [mongoose.Types.ObjectId], 
+        ref: "items",
         default: []
     },
     contactno:{

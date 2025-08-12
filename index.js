@@ -3,6 +3,8 @@ import express from "express" ;
 import { router as userrouter }  from "./routes/user.route.js";
 import { router as itemrouter } from "./routes/items.routes.js";
 import { Connectdb } from "./connect.js";
+import cookieParser from "cookie-parser";
+
 const url = "mongodb://localhost:27017/e-commerce"
 const port = 3000;
 const app = express()
@@ -11,6 +13,7 @@ const app = express()
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}))
+app.use(cookieParser());
 
 Connectdb(url).then(()=>{
     console.log("DataBase connected succesfully");
@@ -21,7 +24,7 @@ Connectdb(url).then(()=>{
 
 //routes
 
-app.use("/users" ,userrouter);
+app.use("/users",userrouter);
 app.use("/admin",itemrouter);
 
 

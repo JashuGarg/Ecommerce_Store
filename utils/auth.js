@@ -8,7 +8,8 @@ function setUser(user){
         email: user.email,
 
     }
-
+    
+    
     return jwt.sign(payload, secretkey);
 }
 function getUser(token){

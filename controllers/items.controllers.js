@@ -1,5 +1,5 @@
 import { items } from "../models/items.models.js";
-
+import { users } from "../models/users.models.js";
 
 
 async function adminaddsitems(req,res) {
@@ -16,6 +16,7 @@ async function adminaddsitems(req,res) {
         price: body.price,
         discount : body.discount || 0,
         description : body.description,  
+        
     })
 
   return  res.status(201).send({
@@ -31,7 +32,24 @@ async function adminaddsitems(req,res) {
     }
 }
 
-export {adminaddsitems}
+
+async function sellingproducts(req,res){
+   let user = await  users.findOne({email:req.user.email});
+   console.log(user);
+   
+    user.orders.push(req.params.id);
+    console.log(user);
+    
+    await user.save();
+    return res.status(200).send({
+            message: "Order added successfully",
+            orders: user.orders
+        });
+}
+
+export {adminaddsitems,
+        sellingproducts
+}
 
 
 
