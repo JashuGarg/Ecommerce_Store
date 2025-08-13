@@ -1,6 +1,6 @@
 import express from "express";
 import { checkifuserexist } from "../middlewares/auth.js";
-import { userlogin, usersignup } from "../controllers/users.controller.js";
+import { userlogin, usersignup, getusercart } from "../controllers/users.controller.js";
 import { sellingproducts } from "../controllers/items.controllers.js";
 const router = express.Router();
 
@@ -33,9 +33,12 @@ router
     })
     .post(userlogin);
 
-    router  
-        .route("/items/:id")
-        .get(checkifuserexist,sellingproducts)
+router  
+    .route("/items/:id")
+    .get(checkifuserexist,sellingproducts);
    
+router 
+    .route("/cart")
+    .get(checkifuserexist,getusercart);
 
 export {router}

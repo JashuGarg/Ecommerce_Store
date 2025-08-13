@@ -1,4 +1,5 @@
 import { users } from "../models/users.models.js";
+import { items } from "../models/items.models.js";
 import bcrypt from "bcrypt" ; 
 import { setUser,getUser } from "../utils/auth.js";
 
@@ -73,5 +74,41 @@ async function userlogin(req,res) {
         })
 }
 
+async function getusercart(req, res) {
+    const user = await users.findOne({ email: req.user.email });
 
-export {userlogin, usersignup} ;
+    if (!user) {
+        return res.status(401).send({
+            mssg: "User Not found",
+            status: "unsuccessful"
+        });
+    }
+
+   try {
+    
+         const arry = user.orders;
+        const cartItems = [];
+        for (let i = 0; i < arry.length; i++) {
+            let item = await items.findOne({ _id: arry[i] });
+            if (item) {
+                console.log(item.itemname);
+                cartItems.push(item.itemname);
+            }
+        }
+
+        return res.status(200).send({
+            mssg: "Got user's cart",
+            status: "successful",
+            data: cartItems
+        });
+   } catch (error) {
+        return res.status(500).send({
+            mssg: `Error : ${error}`,
+            status: "unsuccessful",
+           
+        });
+   }
+}
+
+
+export {userlogin, usersignup,getusercart} ;

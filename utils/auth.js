@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const secretkey = "Jashu@#$"
+const secretkey = process.env.JWTKEY
 
 function setUser(user){
     const payload = {
