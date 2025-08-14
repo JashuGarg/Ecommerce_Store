@@ -1,7 +1,10 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-const secretkey = process.env.JWTKEY
+dotenv.config();
 
+
+const secretkey= process.env.SECRET_KEY 
 function setUser(user){
     const payload = {
         _id: user._id, // include _id in the payload

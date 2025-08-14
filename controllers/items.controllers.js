@@ -5,8 +5,10 @@ import { users } from "../models/users.models.js";
 
 async function adminaddsitems(req, res) {
     const body = req.body;
+    // console.log(body);
+    
 
-    if (!body || !body.name || !body.price || !req.file) {
+    if (!body || !body.name || !body.price) {
         return res.status(404).send({
             mssg: `All fields and image are compulsory`,
             status: "UnSuccessful"
